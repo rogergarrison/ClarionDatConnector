@@ -10,6 +10,22 @@ namespace ClarionDatConnector
 {
     public class ClarionFileData
     {
+        /// <summary>
+        /// ClarionFileData reads a Clarion "DAT" file and creates an in-memory database of the information. 
+        /// the DataRows allow you to use LINQ 
+        /// </summary>
+        
+        //private properties
+        private readonly string filename;
+
+        private DataTable dataTable = new DataTable();
+        public DataTable ClarionData { get { return dataTable; } }
+
+        private List<ClarionFileFields> fldsList = new List<ClarionFileFields>();
+        private List<ClarionFileKeySect> keys = new List<ClarionFileKeySect>();
+        private ClarionFileHeader fh;
+
+        //public properties
         public enum ClarionDataTypes
         {
             LONG = 1,
@@ -22,23 +38,14 @@ namespace ClarionDatConnector
             DECIMAL = 8,
             OTHER 
         }
-        private readonly string filename;
 
-        private DataTable dataTable = new DataTable();
-        public DataTable ClarionData { get { return dataTable; } }
-
-        private List<ClarionFileFields> fldsList = new List<ClarionFileFields>();
-        private List<ClarionFileKeySect> keys = new List<ClarionFileKeySect>();
-        private ClarionFileHeader fh;
-
+        // constructor
         public ClarionFileData(string filename)
         {
             this.filename = filename;
-            //var startTime = DateTime.Now;
-            //setupDatatable();
-            //Console.WriteLine("Took: {0}", DateTime.Now - startTime);
         }
 
+        // private methods
         private void setupDatatable()
         {
             ReadDataFile((br) => //begin read the file for the header
@@ -294,6 +301,8 @@ namespace ClarionDatConnector
             #endregion OpenFileStream
         } // end - open the file with action
          
+
+        // public methods
         public IEnumerable<DataRow> GetData()
         {
             setupDatatable();
