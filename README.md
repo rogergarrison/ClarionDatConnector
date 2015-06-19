@@ -19,3 +19,6 @@ ClarionDatConnector was created in response to the lack of information that exis
 ###How to use###
 Pass the "DAT" file to the constructor "ClarionFileData". Call class method "GetData()" it creates an in-memory database of the "DAT" file. *This may change later to use paging, etc. The file I was working on was quite small, so reading the whole file into memory was not a problem* 
 
+For sample Usage Check out [SampleUsage](https://github.com/rogergarrison/ClarionDatConnector/blob/master/SampleUsage/).
+
+
